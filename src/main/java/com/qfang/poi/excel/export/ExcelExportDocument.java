@@ -2,7 +2,6 @@ package com.qfang.poi.excel.export;
 
 import java.io.OutputStream;
 
-import com.qfang.poi.excel.export.support.ExcelExportFactory;
 import com.qfang.poi.excel.model.ExcelDocument;
 
 /**
@@ -19,7 +18,7 @@ public class ExcelExportDocument extends ExcelDocument {
 	}
 
 	public boolean doExport(OutputStream os) {
-		return ExcelExportFactory.getExcelExport(getFileType()).doExport(os, this);
+		return ExcelExportUtils.doExport(os, this);
 	}
 	
 }
