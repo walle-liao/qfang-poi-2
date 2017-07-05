@@ -29,7 +29,7 @@ public class LargeExportDataProvider<T> extends AbstractExportDataProvider<T> {
     }
 
     @Override
-    public Collection<T> loadDatas() {
+    public DataCollector<T> loadDatas() {
         int totalRecord = this.pageDataLoader.selectTotalCount();
         PageHelper pageHelper = new PageHelper(totalRecord, this.pageSize);
 
@@ -52,7 +52,7 @@ public class LargeExportDataProvider<T> extends AbstractExportDataProvider<T> {
             }
         } while(!pageHelper.isLastPage());
 
-        return datas;
+        return DefaultDataCollector.newInstance(datas);
     }
 
 }

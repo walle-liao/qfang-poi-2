@@ -13,6 +13,6 @@ import com.qfang.poi.excel.DataProvider;
  */
 public interface ExportDataProvider<T> extends DataProvider<T> {
 
-	Collection<T> loadDatas();
+	DataCollector<T> loadDatas();
 	
 }

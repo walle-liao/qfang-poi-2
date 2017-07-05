@@ -100,19 +100,16 @@ final class ExcelExportUtils {
 	protected static void buildSheetBody(ExcelSheet excelSheet, Sheet sheet, int startRows) {
 		DataProvider<?> datasProvider = excelSheet.getDataProvider();
 		if(!ExportDataProvider.class.isAssignableFrom(datasProvider.getClass())) {
-			throw new IllegalArgumentException("");
+			throw new IllegalArgumentException("Only support ExportDataProvider sub-class on excel export");
 		}
 		
-		Collection<?> datas = ((ExportDataProvider<?>) datasProvider).loadDatas();
-		if(CollectionUtils.isEmpty(datas))
-			return ;
-		
-		Iterator<?> iterator = datas.iterator();
-		int rowNum = startRows;
-		while (iterator.hasNext()) {
-			Object data = iterator.next();
-			buildRow(excelSheet, sheet, data, rowNum);
-			rowNum++;
+		DataCollector<?> dataCollector = ((ExportDataProvider<?>) datasProvider).loadDatas();
+		while (dataCollector.hasNext()) {
+			Object data = dataCollector.next();
+			if(data == null)
+				continue;  // 如果是并发容器的话，这里可能为 null
+
+			buildRow(excelSheet, sheet, data, startRows++);
 		}
 	}
 	

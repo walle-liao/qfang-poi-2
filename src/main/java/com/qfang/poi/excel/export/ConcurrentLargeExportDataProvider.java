@@ -47,7 +47,7 @@ public class ConcurrentLargeExportDataProvider<T> extends AbstractExportDataProv
     }
 
     @Override
-    public final Collection<T> loadDatas() {
+    public final DataCollector<T> loadDatas() {
         int totalRecord = this.pageDataLoader.selectTotalCount();
         PageHelper page = new PageHelper(totalRecord, this.pageSize);
         int totalPages = page.getTotalPages();
@@ -73,15 +73,7 @@ public class ConcurrentLargeExportDataProvider<T> extends AbstractExportDataProv
                 }
             });
         }
-        return dataQueue;
-    }
-
-    public T next() {
-        return dataQueue.poll();
-    }
-
-    public boolean isLast() {
-        return liveTaskSize.get() == 0 && dataQueue.isEmpty();
+        return ConcurrentDataCollector.newInstance(dataQueue, liveTaskSize);
     }
 
 }

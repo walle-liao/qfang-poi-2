@@ -26,8 +26,8 @@ public class DefaultExportDataProvider<T> extends AbstractExportDataProvider<T> 
 	}
 	
     @Override
-    public Collection<T> loadDatas() {
-        return this.datas;
+    public DataCollector<T> loadDatas() {
+        return DefaultDataCollector.newInstance(this.datas);
     }
 
 }
