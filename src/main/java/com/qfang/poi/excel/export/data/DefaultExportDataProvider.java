@@ -1,4 +1,4 @@
-package com.qfang.poi.excel.export;
+package com.qfang.poi.excel.export.data;
 
 import java.util.Collection;
 import java.util.function.Supplier;
@@ -27,7 +27,7 @@ public class DefaultExportDataProvider<T> extends AbstractExportDataProvider<T> 
 	
     @Override
     public DataCollector<T> loadDatas() {
-        return DefaultDataCollector.newInstance(this.datas);
+        return new DefaultDataCollector<T>(this.datas);
     }
 
 }

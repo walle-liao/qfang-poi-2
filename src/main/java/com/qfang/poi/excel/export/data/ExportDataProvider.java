@@ -1,6 +1,4 @@
-package com.qfang.poi.excel.export;
-
-import java.util.Collection;
+package com.qfang.poi.excel.export.data;
 
 import com.qfang.poi.excel.DataProvider;
 

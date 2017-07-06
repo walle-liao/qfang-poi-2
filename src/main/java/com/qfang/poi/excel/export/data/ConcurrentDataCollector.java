@@ -1,4 +1,4 @@
-package com.qfang.poi.excel.export;
+package com.qfang.poi.excel.export.data;
 
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -11,13 +11,9 @@ public class ConcurrentDataCollector<T> implements DataCollector<T> {
     private final Queue<T> queue;
     private final AtomicInteger liveTaskSize;
 
-    private ConcurrentDataCollector(Queue<T> queue, AtomicInteger liveTaskSize) {
+    public ConcurrentDataCollector(Queue<T> queue, AtomicInteger liveTaskSize) {
         this.queue = queue;
         this.liveTaskSize = liveTaskSize;
-    }
-
-    public static ConcurrentDataCollector newInstance(Queue<?> queue, AtomicInteger liveTaskSize) {
-        return new ConcurrentDataCollector(queue, liveTaskSize);
     }
 
     @Override

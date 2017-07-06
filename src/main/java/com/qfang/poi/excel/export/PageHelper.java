@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author: liaozhicheng
  * @Timestamp: 2017/02/13 14:24
  */
-final class PageHelper {
+public final class PageHelper {
 
     // 分页加载数据时，默认每页加载1000条记录
     public static final int DEFAULT_PAGE_SIZE = 1000;

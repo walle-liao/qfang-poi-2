@@ -2,8 +2,6 @@ package com.qfang.poi.excel.export;
 
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +21,10 @@ import com.qfang.poi.FileType;
 import com.qfang.poi.excel.ColumnValueHandler;
 import com.qfang.poi.excel.ColumnValueHandlerRegistry;
 import com.qfang.poi.excel.DataProvider;
+import com.qfang.poi.excel.export.data.DataCollector;
+import com.qfang.poi.excel.export.data.ExportDataProvider;
+import com.qfang.poi.excel.export.document.ExcelExportDocument;
+import com.qfang.poi.excel.export.document.LargeExcelExportDocument;
 import com.qfang.poi.excel.model.ExcelSheet;
 import com.qfang.poi.excel.model.SheetHead;
 import com.qfang.poi.excel.model.SheetHeadColumn;
@@ -35,7 +37,7 @@ import com.qfang.poi.utils.Assert;
  * @date 2017年6月30日
  * @since 1.0
  */
-final class ExcelExportUtils {
+public final class ExcelExportUtils {
 	
 	private static final Logger LOG = Logger.getLogger(ExcelExportUtils.class);
 

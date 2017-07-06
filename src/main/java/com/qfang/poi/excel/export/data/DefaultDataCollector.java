@@ -1,4 +1,4 @@
-package com.qfang.poi.excel.export;
+package com.qfang.poi.excel.export.data;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -12,14 +12,10 @@ public class DefaultDataCollector<T> implements DataCollector<T> {
     private final Collection<T> datas;
     private final Iterator<T> iterator;
 
-    private DefaultDataCollector(Collection<T> datas) {
+    public DefaultDataCollector(Collection<T> datas) {
         Objects.requireNonNull(datas);
         this.datas = datas;
         this.iterator = this.datas.iterator();
-    }
-
-    public static DefaultDataCollector newInstance(Collection<?> datas) {
-        return new DefaultDataCollector(datas);
     }
 
     @Override

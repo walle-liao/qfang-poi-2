@@ -17,6 +17,12 @@ import org.junit.Test;
 import com.qfang.poi.excel.DataProvider;
 import com.qfang.poi.excel.dto.UserAnnotationDto;
 import com.qfang.poi.excel.dto.UserDto;
+import com.qfang.poi.excel.export.data.ConcurrentPagingDataProvider;
+import com.qfang.poi.excel.export.data.DefaultExportDataProvider;
+import com.qfang.poi.excel.export.data.PagingDataProvider;
+import com.qfang.poi.excel.export.data.PageDataLoader;
+import com.qfang.poi.excel.export.document.ExcelExportDocument;
+import com.qfang.poi.excel.export.document.LargeExcelExportDocument;
 import com.qfang.poi.excel.support.DefaultSheetHeadBuilder;
 
 /**
@@ -131,7 +137,7 @@ public class ExcelExportTest {
 			long startTime = System.currentTimeMillis();
 			
 			ExcelExportDocument excel = new LargeExcelExportDocument(fileName);
-			DataProvider<UserAnnotationDto> dataProvider = new LargeExportDataProvider<>(new PageDataLoader<UserAnnotationDto>() {
+			DataProvider<UserAnnotationDto> dataProvider = new PagingDataProvider<>(new PageDataLoader<UserAnnotationDto>() {
 				// 查询导出的总记录数
 				@Override
 				public int selectTotalCount() {
@@ -203,7 +209,7 @@ public class ExcelExportTest {
 			os = new BufferedOutputStream(new FileOutputStream(file));
 
 			ExcelExportDocument excel = new LargeExcelExportDocument(fileName);
-			DataProvider<UserAnnotationDto> dataProvider = new ConcurrentLargeExportDataProvider<>(new PageDataLoader<UserAnnotationDto>() {
+			DataProvider<UserAnnotationDto> dataProvider = new ConcurrentPagingDataProvider<>(new PageDataLoader<UserAnnotationDto>() {
 				// 查询导出的总记录数
 				@Override
 				public int selectTotalCount() {
