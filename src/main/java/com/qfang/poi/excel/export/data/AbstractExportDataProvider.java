@@ -1,5 +1,8 @@
 package com.qfang.poi.excel.export.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.qfang.poi.excel.ColumnValueHandler;
 import com.qfang.poi.excel.ColumnValueHandlerRegistry;
 import com.qfang.poi.excel.support.DefaultColumnValueHandlerRegistry;
@@ -15,6 +18,12 @@ public abstract class AbstractExportDataProvider<T> implements ExportDataProvide
 
 	private ColumnValueHandlerRegistry valueHandlerRegistry = new DefaultColumnValueHandlerRegistry();
 
+	protected List<DataLoadInterceptor> dataLoadInterceptors = new ArrayList<>();
+	
+	public void registerDataLoadInterceptor(DataLoadInterceptor interceptor) {
+		this.dataLoadInterceptors.add(interceptor);
+	}
+	
 	@Override
 	public void registerValueHandler(String key, ColumnValueHandler valueHandler) {
 		this.valueHandlerRegistry.registerValueHandler(key, valueHandler);

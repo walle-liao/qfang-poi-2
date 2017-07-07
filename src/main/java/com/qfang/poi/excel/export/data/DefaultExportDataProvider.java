@@ -27,7 +27,10 @@ public class DefaultExportDataProvider<T> extends AbstractExportDataProvider<T> 
 	
     @Override
     public DataCollector<T> loadDatas() {
-        return new DefaultDataCollector<T>(this.datas);
+    	this.dataLoadInterceptors.stream().forEach(DataLoadInterceptor::beforeDataLoad);
+    	DataCollector<T> dataCollector = new DefaultDataCollector<T>(this.datas);
+    	this.dataLoadInterceptors.stream().forEach(interceptor -> interceptor.afterDataLoad(this.datas));
+        return dataCollector;
     }
 
 }

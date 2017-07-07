@@ -31,9 +31,11 @@ public class PagingDataProvider<T> extends AbstractPageableDataProvider<T> {
 
             int currentPageNum = pageHelper.getNextPageNum();
             int pageSize = pageHelper.getPageSize();
+            this.execBeforePageDataLoadInterceptors(currentPageNum, pageSize);
             Collection<T> pageDatas = this.pageDataLoader.loadPageDatas(currentPageNum, pageSize);
             datas.addAll(pageDatas);
-
+            this.execAfterPageDataLoadInterceptors(currentPageNum, pageSize, pageDatas);
+            
             long end = System.currentTimeMillis();
             if(LOG.isDebugEnabled()) {
                 LOG.debug(
@@ -47,4 +49,16 @@ public class PagingDataProvider<T> extends AbstractPageableDataProvider<T> {
         return new DefaultDataCollector<T>(datas);
 	}
 
+	private void execBeforePageDataLoadInterceptors(int pageNum, int pageSize) {
+		this.dataLoadInterceptors.stream()
+				.filter(interceptor -> interceptor instanceof PageDataLoadInterceptor)
+				.forEach(interceptor -> ((PageDataLoadInterceptor) interceptor).beforePageDataLoad(pageNum, pageSize));
+	}
+	
+	private void execAfterPageDataLoadInterceptors(int pageNum, int pageSize, Collection<?> pageDatas) {
+		this.dataLoadInterceptors.stream()
+				.filter(interceptor -> interceptor instanceof PageDataLoadInterceptor)
+				.forEach(interceptor -> ((PageDataLoadInterceptor) interceptor).afterPageDataLoad(pageNum, pageSize, pageDatas));
+	}
+	
 }
